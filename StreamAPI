@@ -1,0 +1,54 @@
+package p1;
+
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
+import java.util.stream.Collectors;
+
+class T {
+    public static void main(String[] args) {
+        List<Integer> list = Arrays.asList(1,7,8,9,5,2,36,4,78, 222, 24, 9);
+
+        // Sum of all Integers
+        System.out.println(list.stream().mapToInt(i -> i).sum());
+        System.out.println(list.stream().reduce(0, (i, j) -> i + j));
+
+        // Average of all Integers
+        System.out.println(list.stream().mapToDouble(i -> i).average().orElse(0));
+
+        // Given a list of numbers, square them and filter values > 100 and then find the average of them
+        System.out.println(list.stream().map(i -> i*i).filter(i -> i > 100).mapToDouble(i -> i).average().orElse(0));
+
+        // Return the even & odd numbers separately
+        System.out.println(list.stream().filter(i -> i % 2 == 0).collect(Collectors.toList()));
+        System.out.println(list.stream().filter(i -> i % 2 == 1).collect(Collectors.toList()));
+
+        // Return all the numbers starting with 2
+        System.out.println(list.stream().filter(i -> String.valueOf(i).startsWith("2")).collect(Collectors.toList()));
+
+        // Print the duplicate numbers
+        System.out.println(list.stream().filter(i -> Collections.frequency(list, i) > 1).collect(Collectors.toSet()));
+
+        // Print the maximum and minimum values
+        System.out.println(list.stream().mapToInt(i -> i).max().orElse(-1));
+        System.out.println(list.stream().mapToInt(i -> i).min().orElse(-1));
+
+        // Sort the list in ASC and DESC order
+        System.out.println(list.stream().sorted().collect(Collectors.toList()));
+        System.out.println(list.stream().sorted(Comparator.reverseOrder()).collect(Collectors.toList()));
+
+        // Return the first 5 numbers and their sum
+        System.out.println(list.stream().limit(5).collect(Collectors.toList()));
+        System.out.println(list.stream().limit(5).mapToInt(i -> i).sum());
+        System.out.println(list.stream().limit(5).reduce(0, (i, j) -> i + j));
+
+        // Return the sum of numbers skipping the first 5 numbers
+        System.out.println(list.stream().skip(5).collect(Collectors.toList()));
+        System.out.println(list.stream().skip(5).mapToInt(i -> i).sum());
+        System.out.println(list.stream().skip(5).reduce(0, (i, j) -> i + j));
+
+        // Return the cube of each number
+        System.out.println(list.stream().map(i -> i*i*i).collect(Collectors.toList()));
+    }
+}
